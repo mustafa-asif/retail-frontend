@@ -2,11 +2,11 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import api from '@/lib/api';
 
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../../components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Building, MapPin, User, Settings2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Button } from '../../components/ui/button';
 
 export default function StoresPage() {
   const { data: stores, isLoading } = useQuery({

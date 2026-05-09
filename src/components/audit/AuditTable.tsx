@@ -1,9 +1,9 @@
 import React from 'react';
 import { format } from 'date-fns';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../../components/ui/table';
 import { Skeleton } from '@/components/ui/skeleton';
 import { TriggerBadge } from './TriggerBadge';
-import { Badge } from '@/components/ui/badge';
+import { Badge } from '../../../components/ui/badge';
 
 interface AuditTableProps {
   logs: any[];
