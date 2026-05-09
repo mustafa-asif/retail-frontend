@@ -5,7 +5,7 @@ import api from '@/lib/api';
 
 import { AuditTable } from '@/components/audit/AuditTable';
 import { Card, CardContent } from '@/components/ui/card';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+// import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Search, Download, Filter } from 'lucide-react';
