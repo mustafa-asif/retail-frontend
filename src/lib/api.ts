@@ -13,7 +13,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:5000/api";
 const KEY_MAP: Record<string, string> = {
   // Stores
   STORE_ID: "storeId",
-  STORE_NAME: "name",
+  STORE_NAME: "storeName",
   LOCATION: "location",
   MANAGER_ID: "managerId",
 
@@ -48,8 +48,8 @@ const KEY_MAP: Record<string, string> = {
 
   // Inventory
   INVENTORY_ID: "inventoryId",
-  QUANTITY: "quantity",
-  STATUS: "status",
+  CURRENT_STOCK: "quantity",
+  STOCK_STATUS: "status",
   LAST_UPDATED: "lastUpdated",
   REORDER_LEVEL: "reorderLevel",
 
@@ -347,7 +347,7 @@ export const salesApi = {
 // ─── Inventory ────────────────────────────────────────────────
 
 export interface InventoryItem {
-  id: number;
+  inventoryId: number;
   productId: number;
   storeId: number;
   quantity: number;
@@ -356,8 +356,8 @@ export interface InventoryItem {
 }
 
 export interface CreateInventoryDto {
-  productId: number;
-  storeId: number;
+  product_id: number;
+  store_id: number;
   quantity: number;
   status?: string;
   [key: string]: unknown;
@@ -366,10 +366,10 @@ export interface CreateInventoryDto {
 export type UpdateInventoryDto = Partial<CreateInventoryDto>;
 
 export interface RestockItem {
-  inventoryId: number;
+  store_id: number;
+  product_id: number;
   quantity: number;
 }
-
 export const inventoryApi = {
   /** GET /inventory — List all inventory records */
   getAll: () => request<InventoryItem[]>("GET", "/inventory"),
@@ -412,6 +412,9 @@ export const inventoryApi = {
   /** PUT /inventory/:id — Update an inventory record */
   update: (id: number, body: UpdateInventoryDto) =>
     request<InventoryItem>("PUT", `/inventory/${id}`, { body }),
+
+  /** DELETE /inventory/:id — Delete an inventory record */
+  remove: (id: number) => request<void>("DELETE", `/inventory/${id}`),
 };
 
 // ─── Analytics ────────────────────────────────────────────────
@@ -484,24 +487,22 @@ export const auditApi = {
 export const fragmentationApi = {
   // Horizontal: Sales
   /** GET /fragmentation/sales/gulshan */
-  getSalesGulshan: () =>
-    request<unknown[]>("GET", "/fragmentation/sales/gulshan"),
+  getSalesGulshan: () => request<unknown[]>("GET", "/sales/fragment/gulshan"),
   /** GET /fragmentation/sales/defense */
-  getSalesDefense: () =>
-    request<unknown[]>("GET", "/fragmentation/sales/defense"),
+  getSalesDefense: () => request<unknown[]>("GET", "/sales/fragment/defense"),
   /** GET /fragmentation/sales/awami */
-  getSalesAwami: () => request<unknown[]>("GET", "/fragmentation/sales/awami"),
+  getSalesAwami: () => request<unknown[]>("GET", "/sales/fragment/awami"),
 
   // Horizontal: Inventory
   /** GET /fragmentation/inventory/gulshan */
   getInventoryGulshan: () =>
-    request<unknown[]>("GET", "/fragmentation/inventory/gulshan"),
+    request<unknown[]>("GET", "/inventory/fragment/gulshan"),
   /** GET /fragmentation/inventory/defense */
   getInventoryDefense: () =>
-    request<unknown[]>("GET", "/fragmentation/inventory/defense"),
+    request<unknown[]>("GET", "/inventory/fragment/defense"),
   /** GET /fragmentation/inventory/awami */
   getInventoryAwami: () =>
-    request<unknown[]>("GET", "/fragmentation/inventory/awami"),
+    request<unknown[]>("GET", "/inventory/fragment/awami"),
 
   // Vertical: Products
   /** GET /fragmentation/products/identity — id, name, category cols */
