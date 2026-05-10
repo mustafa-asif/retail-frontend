@@ -46,6 +46,12 @@ const KEY_MAP: Record<string, string> = {
   TOTAL_AMT: "total", // Oracle uses TOTAL_AMT not TOTAL_AMOUNT
   RN: "rowNum",
 
+  // sales-details
+  DETAIL_ID: "detailId",
+  UNIT_PRICE: "unitPrice",
+  QUANTITY: "quantity",
+  LINE_TOTAL: "lineTotal",
+
   // Inventory
   INVENTORY_ID: "inventoryId",
   CURRENT_STOCK: "quantity",
@@ -298,7 +304,7 @@ export interface ProcessSaleDto {
 }
 
 export interface Sale {
-  id: number;
+  saleId: number;
   customerId: number;
   storeId: number;
   total: number;
