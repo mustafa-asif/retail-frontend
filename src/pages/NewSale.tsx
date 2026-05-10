@@ -92,8 +92,8 @@ export default function NewSalePage() {
   });
 
   const onSubmit = async (values: SaleFormValues) => {
-      const resolvedStoreId = parseInt(values.storeId) || storeId || 1;
-      console.log("Submitting sale with storeId:", resolvedStoreId);
+    const resolvedStoreId = parseInt(values.storeId) || storeId || 1;
+    console.log("Submitting sale with storeId:", resolvedStoreId);
     try {
       for (const item of values.items) {
         await processSale.mutateAsync({
@@ -106,6 +106,7 @@ export default function NewSalePage() {
       toast.success(
         "Sale recorded! Inventory and audit updated by database triggers.",
       );
+      await api.inventory.refreshMaterializedView();
       queryClient.invalidateQueries({ queryKey: ["sales"] });
       queryClient.invalidateQueries({ queryKey: ["inventory"] });
       queryClient.invalidateQueries({ queryKey: ["audit"] });
@@ -350,10 +351,6 @@ export default function NewSalePage() {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="Cash">Cash</SelectItem>
-                        <SelectItem value="Card">Card</SelectItem>
-                        <SelectItem value="Bank Transfer">
-                          Bank Transfer
-                        </SelectItem>
                       </SelectContent>
                     </Select>
                   )}

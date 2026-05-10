@@ -127,7 +127,7 @@ const store = storeData as any;
               <span className="text-slate-500 w-32 inline-block">
                 Payment Method:
               </span>{" "}
-              {s?.paymentMethod || "cash"}
+              {s?.payment_method || "cash"}
             </p>
             <p>
               <span className="text-slate-500 w-32 inline-block">
