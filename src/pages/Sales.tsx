@@ -135,8 +135,8 @@ export default function SalesPage() {
                   key={sale.saleId ?? index}
                   className="hover:bg-slate-50/50"
                 >
-                  <TableCell className="font-medium text-blue-600">
-                    #{sale.saleId ?? "N/A"}
+                  <TableCell className="font-medium">
+                    ID-{sale.saleId ?? "N/A"}
                   </TableCell>
                   <TableCell>
                     {sale.createdAt
