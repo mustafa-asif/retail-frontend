@@ -62,9 +62,9 @@ export default function FragmentationPage() {
         <h3 className="text-lg font-bold">Horizontal Fragmentation: Sales</h3>
         <p className="text-xs text-slate-500">Rows are split out by branch.</p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {renderTable((salesG as any[]) || [], 'Gulshan Sales', 'Data from Gulshan Node', ['id','total','createdAt'])}
-          {renderTable((salesD as any[]) || [], 'Defense Sales', 'Data from Defense Node', ['id','total','createdAt'])}
-          {renderTable((salesA as any[]) || [], 'Awami Sales', 'Data from Awami Node', ['id','total','createdAt'])}
+          {renderTable((salesG as any[]) || [], 'Gulshan Sales', 'Data from Gulshan Node', ['salesId','total','createdAt'])}
+          {renderTable((salesD as any[]) || [], 'Defense Sales', 'Data from Defense Node', ['salesId','total','createdAt'])}
+          {renderTable((salesA as any[]) || [], 'Awami Sales', 'Data from Awami Node', ['salesId','total','createdAt'])}
         </div>
       </div>
 
