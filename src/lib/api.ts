@@ -42,7 +42,7 @@ const KEY_MAP: Record<string, string> = {
   TOTAL: "total",
   SALE_DATE: "createdAt",
   CREATED_AT: "createdAt",
-  PAYMENT_METHOD: "paymentMethod",
+  PAYMENT_METHOD: "payment_method",
   TOTAL_AMT: "total", // Oracle uses TOTAL_AMT not TOTAL_AMOUNT
   RN: "rowNum",
 
@@ -60,14 +60,15 @@ const KEY_MAP: Record<string, string> = {
   REORDER_LEVEL: "reorderLevel",
 
   // Audit
-  LOG_ID: "logId",
+
   AUDIT_ID: "auditId",
   ACTION: "action",
-  TABLE_NAME: "table",
-  RECORD_ID: "recordId",
   PERFORMED_BY: "performedBy",
   CHANGED_AT: "createdAt",
   SOURCE: "source",
+  OLD_QTY: "oldQty",
+  NEW_QTY: "newQty",
+
 
   // Analytics
   MONTH: "month",
