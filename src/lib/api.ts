@@ -19,7 +19,7 @@ const KEY_MAP: Record<string, string> = {
 
   // Products
   PRODUCT_ID: "productId",
-  PRODUCT_NAME: "name",
+  PRODUCT_NAME: "productName",
   PRICE: "price",
   CATEGORY: "category",
   STOCK: "stock",
@@ -191,8 +191,8 @@ export const storesApi = {
 // ─── Products ─────────────────────────────────────────────────
 
 export interface Product {
-  id: number;
-  name: string;
+  productId: number;
+  product_name: string;
   price: number;
   category: string;
   stock?: number;
@@ -201,7 +201,7 @@ export interface Product {
 }
 
 export interface CreateProductDto {
-  name: string;
+  product_name: string;
   price: number;
   category: string;
   stock?: number;

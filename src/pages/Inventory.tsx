@@ -6,6 +6,7 @@ import api from "@/lib/api";
 import { queryClient } from "@/lib/queryClient";
 import { RestockModal } from "@/components/Inventory/RestockModal";
 import { CreateModal } from "@/components/Inventory/CreateModal";
+import { UpdateModal } from "@/components/shared/UpdateModal";
 
 import {
   Table,
@@ -100,22 +101,6 @@ export default function InventoryPage() {
     onError: () => toast.error("Failed to update stock."),
   });
 
-  const openUpdateModal = (item: any) => {
-    setUpdateItem(item);
-    setNewQuantity(String(item.quantity));
-  };
-
-  const handleUpdateSubmit = () => {
-    const parsed = parseInt(newQuantity);
-    if (isNaN(parsed) || parsed < 0) {
-      toast.error("Enter a valid quantity.");
-      return;
-    }
-    updateMutation.mutate({
-      id: updateItem.inventoryId,
-      data: { quantity: parsed },
-    });
-  };
   // ─── Status color ─────────────────────────────────────────
   const getStatusColor = (status: string) => {
     switch (status?.toUpperCase()) {
@@ -272,7 +257,7 @@ export default function InventoryPage() {
                     {item.productId}
                   </TableCell>
                   <TableCell className="font-medium text-slate-900">
-                    {item.name ?? `Product ${item.productId}`}
+                    {item.productName ?? `Product ${item.productId}`}
                   </TableCell>
                   {isAdmin && (
                     <>
@@ -298,7 +283,10 @@ export default function InventoryPage() {
                         variant="ghost"
                         size="sm"
                         className="text-blue-600 hover:text-blue-800"
-                        onClick={() => openUpdateModal(item)}
+                        onClick={() => {
+                          setUpdateItem(item);
+                          setNewQuantity(String(item.quantity));
+                        }}
                       >
                         <Pencil className="h-3.5 w-3.5 mr-1" />
                         Update
@@ -323,53 +311,35 @@ export default function InventoryPage() {
       </div>
 
       {/* ── Update Stock Modal ─────────────────────────────── */}
-      <Dialog open={!!updateItem} onOpenChange={() => setUpdateItem(null)}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>Update Stock — {updateItem?.name}</DialogTitle>
-          </DialogHeader>
+      <UpdateModal
+        open={!!updateItem}
+        onClose={() => setUpdateItem(null)}
+        isPending={updateMutation.isPending}
+        title={`Update Stock — ${updateItem?.name}`}
+        fields={[
+          {
+            label: "Store",
+            value: updateItem?.storeName ?? `Store #${updateItem?.storeId}`,
+          },
+          { label: "Current Stock", value: String(updateItem?.quantity) },
+        ]}
+        inputLabel="New Quantity"
+        inputValue={newQuantity}
+        onInputChange={setNewQuantity}
+        onSubmit={(val) => {
+          const parsed = parseInt(val);
+          if (isNaN(parsed) || parsed < 0) {
+            toast.error("Enter a valid quantity.");
+            return;
+          }
+          updateMutation.mutate({
+            id: updateItem.inventoryId,
+            data: { quantity: parsed },
+          });
+        }}
+      />
 
-          <div className="space-y-4 py-2">
-            <div className="flex justify-between text-sm">
-              <span className="text-slate-500">Store</span>
-              <span className="font-medium text-slate-900">
-                {updateItem?.storeName ?? `Store #${updateItem?.storeId}`}
-              </span>
-            </div>
-            <div className="flex justify-between text-sm">
-              <span className="text-slate-500">Current Stock</span>
-              <span className="font-bold text-slate-900">
-                {updateItem?.quantity}
-              </span>
-            </div>
-            <div className="space-y-1.5">
-              <Label htmlFor="quantity">New Quantity</Label>
-              <Input
-                id="quantity"
-                type="number"
-                min={0}
-                value={newQuantity}
-                onChange={(e) => setNewQuantity(e.target.value)}
-                placeholder="Enter new quantity"
-                className="bg-white"
-              />
-            </div>
-          </div>
-
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setUpdateItem(null)}>
-              Cancel
-            </Button>
-            <Button
-              className="bg-blue-600 hover:bg-blue-700"
-              onClick={handleUpdateSubmit}
-              disabled={updateMutation.isPending}
-            >
-              {updateMutation.isPending ? "Saving..." : "Save Changes"}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      {/* ── Restock & Create Modals ─────────────────────────── */}
       <RestockModal
         open={restockOpen}
         onClose={() => setRestockOpen(false)}
@@ -382,7 +352,6 @@ export default function InventoryPage() {
         onClose={() => setCreateOpen(false)}
         storeId={storeId}
         isAdmin={isAdmin}
-  
       />
     </div>
   );
