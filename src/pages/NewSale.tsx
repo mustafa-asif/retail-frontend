@@ -113,6 +113,11 @@ export default function NewSalePage() {
       setSuccessData({ id: Date.now() });
     } catch (error) {
       toast.error("An error occurred while processing the sale.");
+      if (error instanceof Error) {
+        toast.error(
+          "please check item available in inventory if not add their stock",
+        );
+      }
     }
   };
 

@@ -14,6 +14,7 @@ const USERS = [
   { id: 2, username: 'gulshan', password: 'gulshan123', role: 'manager', storeId: 1,     name: 'Gulshan Manager', branch: 'Gulshan' },
   { id: 3, username: 'defense', password: 'defense123', role: 'manager', storeId: 2,     name: 'Defense Manager', branch: 'Defense' },
   { id: 4, username: 'awami',   password: 'awami123',   role: 'manager', storeId: 3,     name: 'Awami Manager',   branch: 'Awami' },
+  { id: 5, username: 'clifton', password: 'clifton123', role: 'manager', storeId: 21,     name: 'CLifton Manager',    branch: 'Clifton' },
 ];
 
 const loginSchema = z.object({

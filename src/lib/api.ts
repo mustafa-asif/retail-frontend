@@ -15,7 +15,6 @@ const KEY_MAP: Record<string, string> = {
   STORE_ID: "storeId",
   STORE_NAME: "storeName",
   LOCATION: "location",
-  MANAGER_ID: "managerId",
 
   // Products
   PRODUCT_ID: "productId",
@@ -161,17 +160,15 @@ export interface PaginatedResponse<T> {
 // ─── Stores ───────────────────────────────────────────────────
 
 export interface Store {
-  id: number;
-  name: string;
+  storeId: number;
+  store_name: string;
   location: string;
-  managerId?: number;
   [key: string]: unknown;
 }
 
 export interface CreateStoreDto {
-  name: string;
+  store_name: string;
   location: string;
-  managerId?: number;
   [key: string]: unknown;
 }
 
