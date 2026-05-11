@@ -29,10 +29,10 @@ const KEY_MAP: Record<string, string> = {
   // Customers
   CUSTOMER_ID: "customerId",
   CUSTOMER_NAME: "name",
-  NAME: "name",
+
   EMAIL: "email",
   PHONE: "phone",
-  ADDRESS: "address",
+
   CITY: "city",
 
   // Sales

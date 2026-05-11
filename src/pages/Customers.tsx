@@ -79,7 +79,7 @@ export default function CustomersPage() {
                   <TableCell className="text-slate-600">{customer.email || 'N/A'}</TableCell>
                   <TableCell className="text-slate-600">{customer.phone || 'N/A'}</TableCell>
                   <TableCell className="text-right">
-                    <Button variant="ghost" size="sm" onClick={() => navigate(`/customers/${customer.id}`)}>
+                    <Button variant="ghost" size="sm" onClick={() => navigate(`/customers/${customer.customerId}`)}>
                       View Profile
                     </Button>
                   </TableCell>
