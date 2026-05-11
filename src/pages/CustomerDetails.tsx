@@ -62,10 +62,7 @@ export default function CustomerDetailsPage() {
             <p className="text-sm text-slate-500">ID: {cust?.customerId}</p>
           </div>
         </div>
-        <Button variant="outline">
-          <Edit className="w-4 h-4 mr-2" />
-          Edit Customer
-        </Button>
+       
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
